@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 
 import PhotoList from './PhotoList';
 
-const PhotoContainer = () =>
+const PhotoContainer = props =>
   <div className="photo-container">
     <h2>Results</h2>
-    <PhotoList />
+    <PhotoList
+      photos={props.photos} />
   </div>
 
 export default PhotoContainer;

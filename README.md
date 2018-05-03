@@ -1,11 +1,17 @@
 ## Project 9
 ### Create a Gallery App with React
 
-fill in text here
+In this project, I will create a single page app that uses React, React Router DOM, and the Flickr API to dynamically load pictures into a gallery. There will be some preset options in the nav bar (focused on scenery in nature), but will also offer the option for users to search for the pictures they would like to see. I have been supplied with an index.html file which I will break into React components. From there, I will build a router to supply search terms in the form of URL parameters. Finally, I will request 12 pictures from Flickr and display them to the page.
 
-*__Skills:__ React, APIs*
+*__Skills:__ React, React Router, Flickr API*
 
-*__Personal Development Emphasis:__ Learn React and fully understand event and property delegation in that platform*
+*__Personal Development Emphasis:__ Reinforce what I know of React and learn about routing and API requests within that framework.*
+
+---
+
+This project requires a working API key for Flickr. This can be acquired freely by visiting the site below and requesting one. From there, simply follow the instructions in 'config-template.js' to complete the setup. Thanks for checking out my app
+
+[https://www.flickr.com/services/apps/create/apply/]( https://www.flickr.com/services/apps/create/apply/)
 
 ---
 

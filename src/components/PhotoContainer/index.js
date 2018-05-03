@@ -6,8 +6,7 @@ import PhotoList from './PhotoList';
 const PhotoContainer = props =>
   <div className="photo-container">
     <h2>Results</h2>
-    <PhotoList
-      photos={props.photos} />
+    <PhotoList />
   </div>
 
 export default PhotoContainer;

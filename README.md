@@ -9,7 +9,7 @@ In this project, I will create a single page app that uses React, React Router D
 
 ---
 
-This project requires a working API key for Flickr. This can be acquired freely by visiting the site below and requesting one. From there, simply follow the instructions in 'config-template.js' to complete the setup. Thanks for checking out my app
+This project requires a working API key for Flickr. This can be acquired freely by visiting the site below and requesting one. From there, simply follow the instructions in 'config-template.js' to complete the setup. Thanks for checking out my app and happy coding.
 
 [https://www.flickr.com/services/apps/create/apply/]( https://www.flickr.com/services/apps/create/apply/)
 

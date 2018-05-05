@@ -1,17 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import NotFound from './NotFound';
+import Photo from './Photo';
 
-// Refactor into Photo.js
-  // Here: {props.photos.map(() => ... )}
 const PhotoList = props =>
   <ul>
-    <li>
-      <img src="https://farm5.staticflickr.com/4334/37032996241_4c16a9b530.jpg" alt="" />
-    </li>
+    {
+      props.photos.map(photo => {
+        const { farm, server, id, secret } = photo;
+        const src = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg`;
+
+        return (
+          <Photo key={id}
+            src={src}
+            alt={props.title} />
+        );
+      })
+    }
   </ul>
 
-export default PhotoList;
+PhotoList.propTypes = {
+  photos: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+}
 
-// <NotFound />
+export default PhotoList;

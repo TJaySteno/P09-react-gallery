@@ -43,7 +43,7 @@ class App extends Component {
   // Fetch photos from Flickr API
   getPhotosOf = searchTag => {
     const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${APIKey}&tags=${searchTag}&per_page=12&format=json&nojsoncallback=1`;
-    axios.get(url)
+    axios.get(url, { async: true })
       .then(response => {
         this.setState({
           photos: response.data.photos.photo,

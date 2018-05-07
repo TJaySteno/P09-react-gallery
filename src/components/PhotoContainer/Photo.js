@@ -1,14 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
+// Photo stateless component
 const Photo = props =>
-  <li>
-    <img src={props.src} alt={props.alt} />
+  <li className="photo">
+    <img src={props.url} alt={props.alt} />
   </li>
 
 Photo.propTypes = {
-  src: PropTypes.string.isRequired,
-  alt: PropTypes.string
+  url: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired
 }
 
 export default Photo;

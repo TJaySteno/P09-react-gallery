@@ -1,62 +1,69 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import '../App.css';
-import { Route, Redirect, Switch } from 'react-router-dom';
 
-import APIKey from '../config.js';
-import SearchForm from './SearchForm';
-import MainNav from './MainNav';
+import '../App.css';
+import APIKey from '../config';
+import Header from './Header';
+import Loading from './Loading';
 import PhotoContainer from './PhotoContainer';
 
-// Routing, "when here, get this"
-  // http://localhost:3000/search/beach - get beach pics
-    // Make API call
-      // While loading, display "loading..."
-      // When returned
-        // If length > 0, display pics
-        // Else, redirect to /not-found
-  // http://localhost:3000/not-found - load NotFound
-    // Display NotFound in place of PhotoContainer
-      // SearchForm, MainNav still displayed
-
+// App class component
 class App extends Component {
 
+  // Initialize state
   constructor() {
     super();
     this.state = {
+      searchTag: '',
       photos: [],
       loading: true
-    };
+    }
   }
 
+  // Start with waterfall pics
   componentDidMount() {
-    this.getPhotosOf()
+    this.props.history.push('/search/waterfall');
+    this.getPhotosOf('waterfall');
   }
 
-  getPhotosOf = (searchText = 'cats') => {
-    this.setState({loading: true});
-    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${APIKey}&tags=${searchText}&per_page=12&format=json&nojsoncallback=1`;
+  // Compare new path to the last to determine if new photos need to be fetched
+  componentWillReceiveProps(nextProps) {
+    const nextPath = nextProps.location.pathname;
+    const oldPath = this.props.location.pathname;
+    if (nextPath !== oldPath) {
+      const searchTag = nextPath.split('/search/')[1];
+      this.setState({
+        loading: true,
+        searchTag
+      })
+      this.getPhotosOf(searchTag);
+    }
+  }
 
+  // Fetch photos from Flickr API
+  getPhotosOf = searchTag => {
+    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${APIKey}&tags=${searchTag}&per_page=12&format=json&nojsoncallback=1`;
     axios.get(url)
-      .then(res => {
+      .then(response => {
         this.setState({
-          photos: res.data.photos.photo,
+          photos: response.data.photos.photo,
           loading: false
         });
       })
-      .catch(err => { console.log(err); });
+      .catch(error => { console.log(error); });
   }
 
+  // Render App
+    // Use 'loading' state as switch between Loading and PhotoContainer components
   render() {
-    console.log(this.state);
     return (
       <div className="container">
-        <Route render={() => <SearchForm match={this.match} onSearch={this.getPhotosOf} />} />
-        <MainNav />
-        <div className="content">
+        <Header />
+        <div className="photo-container">
+          <h2>{this.state.searchTag}</h2>
           {
             (this.state.loading)
-              ? <p>LoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoading LoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoading LoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoading LoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoading LoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoading LoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoading LoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoading LoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoadingLoading</p>
+              ? <Loading />
               : <PhotoContainer photos={this.state.photos} />
           }
         </div>

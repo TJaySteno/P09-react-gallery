@@ -1,10 +1,8 @@
-// 5 steps
+// 3 steps
   // Request an API key
     // https://www.flickr.com/services/apps/create/apply/
   // Insert your API key below
-  // Copy this file
-  // Paste file into './src' directory
-  // Rename 'config.js'
+  // Rename this file 'config.js'
 
 const APIKey = /* your API key here */;
 

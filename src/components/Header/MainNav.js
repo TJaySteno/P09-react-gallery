@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-// MainNav classless component
 const MainNav = () =>
   <nav className="main-nav">
     <ul>

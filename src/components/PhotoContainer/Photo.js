@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-// Photo stateless component
 const Photo = props =>
   <li className="photo">
-    <img src={props.url} alt={props.alt} />
+    <img
+      src={props.url}
+      alt={props.alt} />
   </li>
 
 Photo.propTypes = {

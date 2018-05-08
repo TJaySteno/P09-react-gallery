@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
 
 // SearchForm class component
-class SearchForm extends Component {
+export default class SearchForm extends Component {
 
-  // Initialize state
   constructor() {
     super();
     this.state = {
-      searchText: '' } }
+      searchText: ''
+    }
+  }
 
   // Update search bar value
   onSearchChange = e => {
-    this.setState({ searchText: e.target.value }); }
+    this.setState({ searchText: e.target.value });
+  }
 
   // On submit, navigate browser to new search term, and reset the search field
   handleSubmit = e => {
     e.preventDefault();
     this.props.history.push(`/search/${this.state.searchText}`);
-    e.currentTarget.reset(); }
+    e.currentTarget.reset();
+  }
 
   render() {
     return (
@@ -35,5 +38,3 @@ class SearchForm extends Component {
     )
   }
 }
-
-export default SearchForm;

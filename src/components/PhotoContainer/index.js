@@ -7,9 +7,9 @@ import APIKey from '../../config';
 import PhotoList from './PhotoList';
 import Loading from './Loading';
 
+// PhotoContainer class component
 export default class PhotoContainer extends Component {
 
-  // Initialize state
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +20,7 @@ export default class PhotoContainer extends Component {
     this.getPhotosOf(this.state.searchTag);
   }
 
-  // Compare new path to the last to determine if new photos need to be fetched
+  // On recieving new props, compare new tag to the last to determine if new photos need to be fetched
   componentWillReceiveProps(nextProps) {
     const searchTag = nextProps.searchTag;
     const oldTag = this.props.searchTag;
@@ -52,7 +52,7 @@ export default class PhotoContainer extends Component {
     return (
       <div className="photo-container">
         <h2>{this.state.searchTag}</h2>
-        {
+        { // While loading notify user, then load the PhotoList
           (isLoading)
           ? <Loading />
           : <PhotoList photos={photos} />

@@ -4,23 +4,30 @@ import PropTypes from "prop-types";
 import Photo from './Photo';
 import NotFound from './NotFound';
 
-// PhotoList stateless component
 const PhotoList = props => {
 
-  let photos;
-  if (props.photos.length > 0) {
-    photos = props.photos.map(photo => {
+  let { photos } = props;
+  let photoList;
+  if (photos.length > 0) {
+    // If photos exist, create a component for each Photo
+    photoList = photos.map(photo => {
       const { farm, server, id, secret, title } = photo;
       const url = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg`;
-      return <Photo url={url} alt={title} key={id} />;
+      return (
+        <Photo
+          url={url}
+          alt={title}
+          key={id} />
+      );
     });
   } else {
-    photos = <NotFound />
+    // Otherwise, notify user pics that were NotFound
+    photoList = <NotFound />
   }
 
   return (
     <ul>
-      {photos}
+      {photoList}
     </ul>
   );
 }

@@ -7,7 +7,6 @@ import Header from './Header';
 import PhotoContainer from './PhotoContainer';
 import Error from './Error';
 
-// App classless component
 const App = () =>
   <BrowserRouter>
     <div className="container">

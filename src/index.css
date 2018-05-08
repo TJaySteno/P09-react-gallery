@@ -78,7 +78,7 @@ input {
   transition: transform 0.25s;
   z-index: 9999;
 }
-.not-found {
+.not-found, .error {
   margin: auto;
   height: auto;
 }

@@ -1,36 +1,67 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
+import axios from 'axios';
 
-import Photo from './Photo';
-import NotFound from './NotFound';
+import APIKey from '../../config';
 
-// PhotoContainer stateless component
-  // If photos exist, render Photo component for each photo present
-  // Else, render NotFound component
-const PhotoContainer = props => {
+import PhotoList from './PhotoList';
+import Loading from './Loading';
 
-  let photos;
-  if (props.photos.length > 0) {
-    photos = props.photos.map(photo => {
-      const { farm, server, id, secret, title } = photo;
-      const url = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg`;
-      return <Photo url={url} alt={title} key={id} />;
-    });
-  } else {
-    photos = <NotFound />
+export default class PhotoContainer extends Component {
+
+  // Initialize state
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchTag: props.searchTag,
+      photos: [],
+      isLoading: true
+    }
+    this.getPhotosOf(this.state.searchTag);
   }
 
-  return(
-    <ul>
-      {photos}
-    </ul>
-  );
+  // Compare new path to the last to determine if new photos need to be fetched
+  componentWillReceiveProps(nextProps) {
+    const searchTag = nextProps.searchTag;
+    const oldTag = this.props.searchTag;
+    if (searchTag !== oldTag) {
+      this.setState({
+        isLoading: true,
+        searchTag
+      });
+      this.getPhotosOf(searchTag);
+    }
+  }
+
+  // Fetch photos from Flickr API
+  getPhotosOf = searchTag => {
+    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${APIKey}&tags=${searchTag}&per_page=12&format=json&nojsoncallback=1`;
+    axios.get(url, { async: true })
+      .then(response => {
+        this.setState({
+          photos: response.data.photos.photo,
+          isLoading: false
+        });
+      })
+      .catch(error => { console.log(error); });
+  }
+
+  render() {
+    const { isLoading, photos } = this.state;
+
+    return (
+      <div className="photo-container">
+        <h2>{this.state.searchTag}</h2>
+        {
+          (isLoading)
+          ? <Loading />
+          : <PhotoList photos={photos} />
+        }
+      </div>
+    );
+  }
 }
 
 PhotoContainer.propTypes = {
-  photos: PropTypes.arrayOf(
-    PropTypes.object.isRequired
-  ).isRequired
+  searchTag: PropTypes.string.isRequired
 }
-
-export default PhotoContainer;

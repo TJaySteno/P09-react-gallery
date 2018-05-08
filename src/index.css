@@ -82,7 +82,10 @@ input {
   height: auto;
 }
 .not-found-monkey {
-  border-radius: 50%;
+  border-radius: 5%;
+  -webkit-box-shadow: 4px 6px 0px 0px rgba(39,82,112,0.8);
+  -moz-box-shadow: 4px 6px 0px 0px rgba(39,82,112,0.8);
+  box-shadow: 4px 6px 0px 0px rgba(39,82,112,0.8);
 }
 
 @media only screen and (max-width: 767px)  {

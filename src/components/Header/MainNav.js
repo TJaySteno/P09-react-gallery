@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const MainNav = () =>
-  <nav className="main-nav">
+  <nav className='main-nav'>
     <ul>
       <li><NavLink to='/search/beach'>Beach</NavLink></li>
       <li><NavLink to='/search/forest'>Forest</NavLink></li>

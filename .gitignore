@@ -2,6 +2,7 @@
 
 # config
 config.js
+.jshintrc
 
 # dependencies
 /node_modules

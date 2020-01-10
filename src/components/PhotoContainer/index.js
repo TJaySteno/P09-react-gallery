@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import APIKey from '../../config';
@@ -15,19 +15,19 @@ export default class PhotoContainer extends Component {
     this.state = {
       searchTag: props.searchTag,
       photos: [],
-      isLoading: true
-    }
+      isLoading: true,
+    };
     this.getPhotosOf(this.state.searchTag);
   }
 
-  // On recieving new props, compare new tag to the last to determine if new photos need to be fetched
+  // On new props, compare new tag to the last to determine if new photos need to be fetched
   componentWillReceiveProps(nextProps) {
     const searchTag = nextProps.searchTag;
     const oldTag = this.props.searchTag;
     if (searchTag !== oldTag) {
       this.setState({
         isLoading: true,
-        searchTag
+        searchTag,
       });
       this.getPhotosOf(searchTag);
     }
@@ -40,17 +40,17 @@ export default class PhotoContainer extends Component {
       .then(response => {
         this.setState({
           photos: response.data.photos.photo,
-          isLoading: false
+          isLoading: false,
         });
       })
       .catch(error => { console.log(error); });
-  }
+  };
 
   render() {
     const { isLoading, photos } = this.state;
 
     return (
-      <div className="photo-container">
+      <div className='photo-container'>
         <h2>{this.state.searchTag}</h2>
         { // While loading notify user, then load the PhotoList
           (isLoading)
@@ -63,5 +63,5 @@ export default class PhotoContainer extends Component {
 }
 
 PhotoContainer.propTypes = {
-  searchTag: PropTypes.string.isRequired
-}
+  searchTag: PropTypes.string.isRequired,
+};
